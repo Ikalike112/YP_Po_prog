@@ -33,5 +33,29 @@ namespace UnitTestProject1
                 Assert.Fail();
             }
         }
+        [TestMethod]
+        public void Task3()
+        {
+            try
+            {
+                Task3 t = new Task3();
+                t.Stor = 5;
+                t.X1 = 0;
+                t.Y1 = 0;
+                t.X2 = 5;
+                t.Y2 = 2.5;
+                t.Y3 = 2.5;
+                t.X3 = 5;
+                t.Y4 = 5;
+                t.X4 = 0;
+                t.kvadrat = new int[1000, 1000];
+                t.Vichislenia(t.Stor / 1000);
+                Assert.AreEqual(1, 1);
+            }
+            catch
+            {
+                Assert.Fail();
+            }
+        }
     }
 }

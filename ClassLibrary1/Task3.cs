@@ -8,7 +8,7 @@ namespace ClassLibrary1
 {
     public class Task3
     {
-        public int Stor { get; set; }
+        public double Stor { get; set; }
         public double X1 { get; set; }
         public double Y1 { get; set; }
         public double X2 { get; set; }
@@ -18,12 +18,18 @@ namespace ClassLibrary1
         public double X4 { get; set; }
         public double Y4 { get; set; }
         public int[,] kvadrat;
+        public void Task()
+        {
+            Input();
+            kvadrat = new int[1000, 1000];
+            double st_min = Stor / 1000;//0.005
+            Vichislenia(st_min);
+        }
+
         public void Input()
         {
             Console.WriteLine("Введите сторону квадрата ");
-            Stor = Convert.ToInt32(Console.ReadLine());
-            kvadrat = new int[Stor*1000, Stor*1000];
-            int st_min = Stor;
+            Stor = Convert.ToDouble(Console.ReadLine());//5
             Console.WriteLine("Введите координаты прямой X1 Y1");
             X1 = Convert.ToDouble(Console.ReadLine());
             Y1 = Convert.ToDouble(Console.ReadLine());
@@ -34,25 +40,25 @@ namespace ClassLibrary1
             Y3 = Convert.ToDouble(Console.ReadLine());
             X4 = Convert.ToDouble(Console.ReadLine());
             Y4 = Convert.ToDouble(Console.ReadLine());
-            int count = 0;
-            for (int i=0;i<kvadrat.GetLength(0);i++)
-                for (int j = 0; j < kvadrat.GetLength(0); j++)
+        }
+
+        public void Vichislenia(double st_min)
+        {
+            int count_pl1 = 0;
+            int count_pl2 = 0;
+            int count_pl3 = 0;
+            for (int i = 0; i < kvadrat.GetLength(0); i++)
+                for (int j = 0; j < kvadrat.GetLength(1); j++)
                 {
-                    if ((j - Y1 * 1000) / (Y2 * 1000 - Y1 * 1000) - (i - X1 * 1000) / (X2 * 1000 - X1 * 1000) <= 0 && (j - Y1 * 1000) / (Y2 * 1000 - Y1 * 1000) - (i - X1 * 1000) / (X2 * 1000 - X1 * 1000) > 0)
-                        count++;
+                    if ((st_min * j - Y1) / (Y2 - Y1) <= (st_min * i - X1) / (X2 - X1) && (st_min * j - Y3) / (Y4 - Y3) <= (st_min * i - X3) / (X4 - X3)) count_pl1++;
+                    if ((st_min * j - Y1) / (Y2 - Y1) >= (st_min * i - X1) / (X2 - X1) && (st_min * j - Y3) / (Y4 - Y3) <= (st_min * i - X3) / (X4 - X3)) count_pl2++;
+                    if ((st_min * j - Y1) / (Y2 - Y1) >= (st_min * i - X1) / (X2 - X1) && (st_min * j - Y3) / (Y4 - Y3) >= (st_min * i - X3) / (X4 - X3)) count_pl3++;
+                    // if ((j - Y1 * 1000) / (Y2 * 1000 - Y1 * 1000) - (i - X1 * 1000) / (X2 * 1000 - X1 * 1000) <= 0 && (j - Y1 * 1000) / (Y2 * 1000 - Y1 * 1000) - (i - X1 * 1000) / (X2 * 1000 - X1 * 1000) > 0)
+                    //    count++;
                 }
-            //Console.Write("Введите количество вершин: ");
-            //int n = int.Parse(Console.ReadLine());
-            //var coord = new int[2, n];
-            //Console.WriteLine("***Кординаты вершины вводить через пробел***");
-            //for (int i = 0; i < n; i++)
-            //{
-            //    Console.Write("Введите координаты вершины {0}: ", i + 1);
-            //    var input = Console.ReadLine().Split(' ');
-            //    coord[0, i] = int.Parse(input[0]);
-            //    coord[1, i] = int.Parse(input[1]);
-            //}
-            //return coord;
+            Console.WriteLine($"Pl1 = {count_pl1 * Stor * Stor / 1000000}");
+            Console.WriteLine($"Pl2 = {count_pl2 * Stor * Stor / 1000000}");
+            Console.WriteLine($"Pl3 = {count_pl3 * Stor * Stor / 1000000}");
         }
 
         static double Area(int[,] coord)

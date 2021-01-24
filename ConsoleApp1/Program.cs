@@ -30,6 +30,10 @@ namespace ConsoleApp1
                     case 2:
                         Koord_yglbl task2 = new Koord_yglbl();
                         break;
+                    case 3:
+                        Task3 t = new Task3();
+                        t.Input();
+                        break;
                     default:
                         break;
                 }
